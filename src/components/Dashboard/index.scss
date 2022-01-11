@@ -1,19 +1,32 @@
 .border-left-primary {
-    border-left: 0.25rem solid #4e73df!important;
+  border-left: 0.25rem solid #4e73df!important;
+}
+
+.border-left-success {
+  border-left: 0.25rem solid #1cc88a!important;
+}
+
+.border-left-info {
+  border-left: 0.25rem solid #36b9cc!important;
+}
+
+.border-left-warning {
+  border-left: 0.25rem solid #f6c23e!important;
 }
 
 .custom-card {
-    width: 23rem;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    background-color: #fff;
-    background-clip: border-box;
-    border: 1px solid #e3e6f0;
-    border-radius: 0.35rem;
-    .card__body {
-        flex: 1 1 auto;
-        min-height: 1px;
-        padding: 1.25rem;
-    }
+  width: 23rem;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid #e3e6f0;
+  border-radius: 0.35rem;
+  margin-right: 2rem;
+  .card__body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1.25rem;
+  }
 }

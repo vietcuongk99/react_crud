@@ -61,6 +61,17 @@
     }
   }
 
+  .custom-outline-btn-primary {
+    color: #4e73df;
+    background-color: #fff;
+    border-color: #4e73df;
+    &:hover {
+      color: #fff;
+      background-color: #4e73df;
+      // transition-duration: 500ms;
+    }
+  }
+
   .text-primary {
     color: #4e73df!important;
   }

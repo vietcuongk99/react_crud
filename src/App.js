@@ -6,28 +6,28 @@ import User from './pages/User/index';
 import Setting from './pages/Setting/index';
 import './fontawesome.js'
 import { BrowserRouter as Router,Routes, Route } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 function App() {
 
-  const [users, setUsers] = useState(3)
+  const [users] = useState(3)
 
-  useEffect(() => {
-    console.log('Mounted or updated!')
-  })
+  // useEffect(() => {
+  //   console.log('Mounted or updated!')
+  // })
 
-  useEffect(() => {
-    console.log('State của App thay đổi')
-    return () => {
-        console.log('destroy component')
-    }
-  }, [users])
+  // useEffect(() => {
+  //   console.log('State của App thay đổi')
+  //   return () => {
+  //       console.log('destroy component')
+  //   }
+  // }, [users])
 
-  useEffect(() => {
-    return () => {
-        console.log('Unmounted')
-    }
-  }, [])
+  // useEffect(() => {
+  //   return () => {
+  //       console.log('Unmounted')
+  //   }
+  // }, [])
 
   return (
     <Router>
@@ -36,7 +36,7 @@ function App() {
           <Sidebar />
           <Routes>
             <Route exact path="/" element={<Home title='Dashboard' users={users}/>} />
-            <Route exact path="/user" element={<User title='User' setUsers={setUsers} users={users}/> } />
+            <Route exact path="/user" element={<User title='User' users={users}/> } />
             <Route exact path="/setting" element={<Setting />} />
           </Routes>
         </div>

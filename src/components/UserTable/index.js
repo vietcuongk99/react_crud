@@ -1,47 +1,38 @@
-
-// import { useState, useEffect } from 'react';
 import { Table } from 'react-bootstrap';
+import UserItem from './UserItem';
+import userService from './../../services/user';
 function UserTable(props) {
 
-    // const [count, setCount] = useState(100)
+  const editUser = (user) => {
+    let {id, firstName, lastName, userName} = {...user}
+    props.setCurrentUser({id, firstName, lastName, userName})
+    props.setSubmitStatus('update')
+    props.toggleModal(true)
+  }
 
-    // useEffect(() => {
-    //     console.log('State count thay đổi')
-    //     return () => {
-    //         console.log('destroy component')
-    //     }
-    // }, [count])
-
+  const deleteUser = (user) => {
+    userService.deleteUser(user.id).then(() => {
+      userService.getUser().then(res => {
+        props.setUsers(res.data)
+      })
+    })
+  }
     return (
         <div>
             <Table responsive>
                 <thead>
                     <tr>
-                    <th>ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Username</th>
+                      <th>ID</th>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>Username</th>
+                      <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                    <td>1</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    </tr>
-                    <tr>
-                    <td>2</td>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    </tr>
-                    <tr>
-                    <td>3</td>
-                    <td>Chris</td>
-                    <td>Evan</td>
-                    <td>@twitter</td>
-                    </tr>
+                  {props.users.map(user =>
+                    (<UserItem key={user.id} user={user} delete={deleteUser} edit={editUser} />)
+                  )}
                 </tbody>
             </Table>
         </div>
