@@ -17,6 +17,7 @@ function User (props) {
         if (res.status === 200 || res.status === 201) {
           getUser()
           setShowModal(false)
+          setCurrentUser({firstName: '', lastName: '', userName: ''})
         }
       })
     }
@@ -28,6 +29,7 @@ function User (props) {
         if (res.status === 200 || res.status === 201) {
           getUser()
           setShowModal(false)
+          setCurrentUser({firstName: '', lastName: '', userName: ''})
         }
       })
     }
@@ -59,6 +61,7 @@ function User (props) {
     useEffect(() => {
       console.log('Mounting')
       getUser()
+      // setCurrentUser({firstName: '', lastName: '', userName: ''})
     }, [])
 
     return (

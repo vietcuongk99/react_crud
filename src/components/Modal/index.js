@@ -1,19 +1,19 @@
 
-import { Modal } from 'react-bootstrap';
+// import { Modal } from 'react-bootstrap';
 import { useEffect } from 'react'
-import { Form, Input, Button, Checkbox } from 'antd';
-function CustomModal (props) {
+import { Modal, Form, Input, Button, Checkbox } from 'antd';
+function CustomModal ({user, toggle, setCurrentUser, submit, show}) {
 
   const [form] = Form.useForm();
 
   const closeModal = () => {
-    props.toggle(false)
-    props.setCurrentUser({firstName: '', lastName: '', userName: ''})
+    toggle(false)
+    setCurrentUser({firstName: '', lastName: '', userName: ''})
   }
 
   const onFinish = (values) => {
     let {firstName, lastName, userName} = {...values}
-    props.submit({firstName, lastName, userName})
+    submit({firstName, lastName, userName})
   }
 
   const onFinishFailed = (errorInfo) => {
@@ -21,13 +21,33 @@ function CustomModal (props) {
   }
 
   useEffect(() => {
-    form.setFieldsValue({ firstName: props.user.firstName, lastName: props.user.lastName, userName: props.user.userName })
+    form.setFieldsValue({ firstName: user.firstName, lastName: user.lastName, userName: user.userName })
+    return () => {
+      form.resetFields()
+    }
   })
 
-
   return (
-      <Modal show={props.show}>
+      <Modal
+        title="User Information"
+        visible={show}
+        onOk={onFinish}
+        onCancel={closeModal}
+        forceRender={true}
+        getContainer={false}
+        footer={(
+          <>
+            <Button variant="secondary" onClick={closeModal}>
+              Close
+            </Button>
+            <Button form="userForm" variant="primary" htmlType="submit">
+              Save Changes
+            </Button>
+          </>
+        )}
+      >
         <Form
+          id='userForm'
           form={form}
           name="basic"
           labelCol={{
@@ -43,10 +63,6 @@ function CustomModal (props) {
           onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
-        <Modal.Header closeButton onHide={closeModal}>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
           <Form.Item
             label="Username"
             name="userName"
@@ -104,15 +120,6 @@ function CustomModal (props) {
             }}
           >
           </Form.Item>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={closeModal}>
-            Close
-          </Button>
-          <Button variant="primary" htmlType="submit">
-            Save Changes
-          </Button>
-        </Modal.Footer>
         </Form>
       </Modal>
   );
