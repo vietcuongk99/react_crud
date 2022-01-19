@@ -1,7 +1,11 @@
 import { Table } from 'react-bootstrap';
 import UserItem from './UserItem';
 import userService from './../../services/user';
+import { useDispatch } from "react-redux";
+import { decrement } from "../../actions/counter";
 function UserTable(props) {
+
+  const dispatch = useDispatch();
 
   const editUser = (user) => {
     let {id, firstName, lastName, userName} = {...user}
@@ -14,6 +18,7 @@ function UserTable(props) {
     userService.deleteUser(user.id).then(() => {
       userService.getUser().then(res => {
         props.setUsers(res.data)
+        dispatch(decrement(1))
       })
     })
   }

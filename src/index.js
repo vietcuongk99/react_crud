@@ -5,9 +5,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'antd/dist/antd.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import allReducers from "./reducers";
 
+const store = createStore(
+  allReducers, /* preloadedState, */
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 ReactDOM.render(
-  <App />,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('root')
 );
 

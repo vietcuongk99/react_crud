@@ -23,6 +23,7 @@ function CustomModal ({user, toggle, setCurrentUser, submit, show}) {
   useEffect(() => {
     form.setFieldsValue({ firstName: user.firstName, lastName: user.lastName, userName: user.userName })
     return () => {
+      console.log(1)
       form.resetFields()
     }
   })

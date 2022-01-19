@@ -4,17 +4,23 @@ import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 import CustomModal from './../../components/Modal/index';
+import { useDispatch } from "react-redux";
+import { set, increment } from "../../actions/counter";
 function User (props) {
   
     const [users, setUsers] = useState([])
     const [showModal, setShowModal] = useState(false)
     const [submitStatus, setSubmitStatus] = useState(null)
     const [currentUser, setCurrentUser] = useState({firstName: '', lastName: '', userName: ''})
+
+    const dispatch = useDispatch();
+
  
     const createUser = (user) => {
       userService.addUser(user).then(res => {
         console.log(res)
         if (res.status === 200 || res.status === 201) {
+          dispatch(increment(1))
           getUser()
           setShowModal(false)
           setCurrentUser({firstName: '', lastName: '', userName: ''})
@@ -60,9 +66,15 @@ function User (props) {
 
     useEffect(() => {
       console.log('Mounting')
-      getUser()
+      userService.getUser().then(res => {
+        setUsers(res.data)
+        dispatch(set(res.data.length))
+      })
       // setCurrentUser({firstName: '', lastName: '', userName: ''})
-    }, [])
+      return () => {
+        setUsers([])
+      }
+    }, [dispatch])
 
     return (
         <div className='main-content'>
